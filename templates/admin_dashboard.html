@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+  {% include "navbaradmin.html" %}
+    
+    <div class="flex justify-center items-center h-screen">
+        <div class="bg-white text-black p-10 rounded-lg shadow-xl w-4/5 text-center">
+            <h1 class="text-4xl font-bold">Hello, {{ user.first_name }}!</h1>
+            <p class="mt-4 text-lg">As an Admin, you can manage books, issue books to students, and more!</p>
+            <hr class="my-6 border-gray-300">
+            <p class="text-lg font-semibold">Available Actions</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                <a href="{% url 'addbook' %}" class="bg-gray-200 text-gray-900 px-6 py-4 rounded-lg shadow-md hover:bg-gray-300 flex flex-col items-center transition">
+                    <span class=" font-medium">Add Book</span>
+                </a>
+                <a href="{% url 'viewbook' %}" class="bg-gray-200 text-gray-900 px-6 py-4 rounded-lg shadow-md hover:bg-gray-300 flex flex-col items-center transition">
+                    <span class="font-medium">View Books</span>
+                </a>
+                <a href="{% url 'issuebook' %}" class="bg-gray-200 text-gray-900 px-6 py-4 rounded-lg shadow-md hover:bg-gray-300 flex flex-col items-center transition">
+                    <span class="font-medium">Issue Book</span>
+                </a>
+                <a href="{% url 'viewissuedbook' %}" class="bg-gray-200 text-gray-900 px-6 py-4 rounded-lg shadow-md hover:bg-gray-300 flex flex-col items-center transition">
+                    <span class="font-medium">Issued Books</span>
+                </a>
+                <a href="{% url 'viewstudent' %}" class="bg-gray-200 text-gray-900 px-6 py-4 rounded-lg shadow-md hover:bg-gray-300 flex flex-col items-center transition">
+                    <span class="font-medium">View Students</span>
+                </a>
+                <a href="{% url 'reports' %}" class="bg-gray-200 text-gray-900 px-6 py-4 rounded-lg shadow-md hover:bg-gray-300 flex flex-col items-center transition">
+                    <span class="font-medium">View Reports</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    {% include "footer.html" %}
+</body>
+</html>

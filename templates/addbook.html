@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Book</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+{% include "navbaradmin.html" %}
+<body class="bg-gradient-to-r from-gray-100 to-gray-300 min-h-screen">
+    
+    
+    <div class="mt-40  flex justify-center items-center"> 
+        <div class="w-full max-w-lg bg-white p-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-center text-gray-800 border-b pb-4">{{ title }}</h2>
+            
+            <form action="{% if form.instance.pk %}{% url 'edit_book' form.instance.pk %}{% else %}{% url 'addbook' %}{% endif %}" method="post" class="mt-6 space-y-4">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="flex items-center space-x-6">
+                        <label class="block text-sm font-medium mb-2">{{ field.label_tag }}</label>
+                        <div class="flex-1">
+                        {{ field }}
+                        {% if field.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ field.errors.0 }}</p>
+                        {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+                
+                <button type="submit" class="w-full bg-gray-300 text-black py-2 px-4 rounded-md font-semibold hover:bg-gray-200 transition">Add Book</button>
+            </form>
+            
+            <p class="text-center mt-4 text-gray-600">
+                View Available Books? <a href="{% url 'viewbook'%}" class="text-blue-500 font-semibold hover:underline">Click here</a>
+            </p>
+        </div>
+    </div>
+
+    {% include "footer.html" %}
+</body>
+</html>

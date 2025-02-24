@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Issued Books</title>
+
+</head>
+
+
+{% include "navbarstudent.html" %}
+
+<body class="bg-white text-black">
+    
+    <div class="text-center text-black py-5 shadow-md mt-20 mb-5">
+        <h1 class="text-3xl font-semibold tracking-wide">Books Issued To You</h1>
+    </div>
+    
+    {% if issued_books %}
+    <div class="container mx-auto mt-8 p-8 bg-white shadow-lg rounded-lg">
+        <div class="overflow-x-auto bg-white p-6 rounded-lg shadow-md">
+            <table class="w-full border-collapse border border-black rounded-md shadow-md">
+                <thead class="bg-black text-white text-lg">
+                    <tr>
+                        <th class="border border-gray-400 p-2">Book Name</th>
+                        <th class="border border-gray-400 p-2">Author</th>
+                        <th class="border border-gray-400 p-2">Issue Date</th>
+                        <th class="border border-gray-400 p-2">Expiry Date</th>
+                        <th class="border border-gray-400 p-2">Fine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in issued_books %}
+                    <tr class="bg-gray-50 hover:bg-gray-100 transition">
+                        <td class="border border-gray-300 p-2">{{ book.book.title }}</td>
+                        <td class="border border-gray-300 p-2">{{ book.author }}</td>
+                        <td class="border border-gray-300 p-2">{{ book.issuedate }}</td>
+                        <td class="border border-gray-300 p-2">{{ book.expirydate }}</td>
+                        <td class="border border-gray-300 p-2 text-red-600 font-semibold">
+                            ₹{{ book.fine }}
+                        </td>
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% else %}
+    <div class="text-center mt-10">
+        <h1 class="text-2xl text-gray-700 font-semibold">No books issued to you</h1>
+    </div>
+{% endif %}
+
+        
+
+    </div>
+
+    <br><br>
+    {% include "footer.html" %}
+</body>
+</html>

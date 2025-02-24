@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Reports</title>
+</head>
+
+
+
+<body class="bg-white text-black">
+<!-- Navbar -->
+{% include "navbaradmin.html" %}
+<div class="container mx-auto p-6 mt-20">
+    <h1 class="text-2xl font-bold mb-4">Library Reports</h1>
+
+    <!-- Overdue Books Report -->
+    <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-2">Overdue Books</h2>
+        <table class="min-w-full bg-white border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="py-2 px-4 border">Student</th>
+                    <th class="py-2 px-4 border">Book</th>
+                    <th class="py-2 px-4 border">Due Date</th>
+                    <th class="py-2 px-4 border">Fine</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in overdue_books %}
+                <tr>
+                    <td class="py-2 px-4 border">{{ book.student.name }}</td>
+                    <td class="py-2 px-4 border">{{ book.book.title }}</td>
+                    <td class="py-2 px-4 border">{{ book.expirydate }}</td>
+                    <td class="py-2 px-4 border">${{ book.fine }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center py-2 px-4 border">No overdue books</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Top Students Report -->
+    <div>
+        <h2 class="text-xl font-semibold mb-2">Top 10 Students (Most Borrowed Books)</h2>
+        <table class="min-w-full bg-white border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="py-2 px-4 border">Rank</th>
+                    <th class="py-2 px-4 border">Student</th>
+                    <th class="py-2 px-4 border">Total Books Borrowed</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in top_students %}
+                <tr>
+                    <td class="py-2 px-4 border">{{ forloop.counter }}</td>
+                    <td class="py-2 px-4 border">{{ student.user.get_full_name }}</td>
+                    <td class="py-2 px-4 border">{{ student.total_books }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center py-2 px-4 border">No data available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Footer -->
+{% include "footer.html" %}    
+
+</body>
+</html>

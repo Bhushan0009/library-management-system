@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Library Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ffffff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+ <!-- Navbar -->
+    {% include "navbar.html" %}
+
+<body class="bg-black text-white">
+
+
+   
+
+      <!-- Hero Section -->
+      <section class="flex flex-col items-center justify-center h-screen text-center px-6">
+        <h1 class="text-5xl md:text-6xl font-extrabold tracking-wide">
+            Welcome to <span class="text-gray-300">Library Management System</span>
+        </h1>
+        <p class="mt-4 text-lg text-gray-400 max-w-2xl">
+            Manage books and resources seamlessly with a <span class="font-semibold">simple, fast, and secure</span> library management system.
+        </p>
+    </section>
+
+
+    <!-- Footer -->
+        {% include "footer.html" %}
+   
+
+</body>
+</html>

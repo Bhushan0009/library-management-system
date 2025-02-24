@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Issued Books</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-black mt-20">
+
+    <!-- Navbar -->
+    {% include "navbaradmin.html" %}
+
+    <!-- Page Header -->
+    <div class="text-center bg-white text-black py-5 shadow-md">
+        <h1 class="text-3xl font-semibold tracking-wide">Issued Books to Students</h1>
+    </div>
+
+    {% if issuedbooks %}
+    <!-- Issued Books Table -->
+    <div class="max-w-6xl mx-auto mt-10 bg-white shadow-lg rounded-lg p-6">
+        <table class="w-full border-collapse border border-gray-300">
+            <thead class="bg-black text-white text-lg">
+                <tr>
+                    <th class="border border-gray-300 p-3">Student Name</th>
+                    <th class="border border-gray-300 p-3">Enrollment</th>
+                    <th class="border border-gray-300 p-3">Book Name</th>
+                    <th class="border border-gray-300 p-3">Author</th>
+                    <th class="border border-gray-300 p-3">Issued</th>
+                    <th class="border border-gray-300 p-3">Expiry Date</th>
+                    <th class="border border-gray-300 p-3">Fine</th>
+                    <th class="border border-gray-300 p-3">Action</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                {% for ib in issuedbooks %}
+                <tr class="even:bg-gray-100 hover:bg-gray-200 transition">
+                    <td class="border border-gray-300 p-3">{{ib.student.user.get_full_name}}</td>
+                    <td class="border border-gray-300 p-3">{{ib.student.enrollment}}</td>
+                    <td class="border border-gray-300 p-3">{{ib.book.title}}</td>
+                    <td class="border border-gray-300 p-3">{{ib.book.author}}</td>
+                    <td class="border border-gray-300 p-3">{{ib.issuedate}}</td>
+                    <td class="border border-gray-300 p-3">{{ib.expirydate}}</td>
+                    <td class="border border-gray-300 p-3 font-semibold {% if ib.fine > 0 %}text-red-500{% else %}text-green-600{% endif %}">
+                        ₹{{ ib.fine }}
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                        {% if ib.book.id %}
+                        <form method="POST" action="{% url 'return_book' ib.book.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-red-500 text-white px-0 py-0 rounded hover:bg-red-700 transition">
+                                Return Book
+                            </button>
+                        </form>
+                        {% else %}
+                        <span class="text-red-500">Book Not Found</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <!-- No Issued Books Message -->
+    <div class="text-center mt-16 text-xl font-semibold text-gray-600">
+        <p>No books have been issued.</p>
+    </div>
+    {% endif %}
+
+    <!-- Footer -->
+    {% include "footer.html" %}
+
+</body>
+</html>

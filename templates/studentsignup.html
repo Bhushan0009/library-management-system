@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Signup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+{% include "navbar.html" %}
+
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+
+
+    <!-- Signup Form -->
+    <div class="flex flex-grow items-center justify-center mt-40">
+        <div class="bg-white-800 p-8 rounded-lg shadow-lg w-96">
+            <h2 class="text-center text-2xl font-bold mb-6">Student Signup</h2>
+
+            <form method="post" class="space-y-4">
+                {% csrf_token %}
+
+                {% for field in form %}
+                <div class="flex items-center space-x-2">
+                    <label class="block text-sm font-medium mb-2">{{ field.label_tag }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                    <p class="text-red-500 text-sm">{{ field.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <button type="submit" class="w-full bg-gray-300 text-black py-2 px-4 rounded-md font-semibold hover:bg-gray-200 transition">Sign Up</button>
+            </form>
+
+            <p class="text-center text-sm mt-4">
+                Already have an account? <a href="{% url 'studentlogin' %}" class="text-blue-400 hover:underline">Login here</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    {% include "footer.html" %}
+
+</body>
+</html>

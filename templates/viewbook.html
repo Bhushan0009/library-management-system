@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Books</title>
+</head>
+
+ <!-- Navbar -->
+ {% include "navbaradmin.html" %}
+ 
+<body class="bg-white text-black">
+
+   
+
+    <!-- Header -->
+    <div class="text-center text-black py-5 shadow-md mt-20 mb-16">
+        <h1 class="text-3xl font-semibold tracking-wide">Available Books in Library</h1>
+    </div>
+
+    {% if books %}
+    <!-- Table Container -->
+    <div class="container mx-auto mt-8 p-8 bg-white shadow-lg rounded-lg">
+        <div class="overflow-x-auto bg-white p-6 rounded-lg shadow-md">
+            <table class="w-full border-collapse border border-black rounded-md shadow-md">
+                <!-- Table Head -->
+                <thead class="bg-black text-white text-lg">
+                    <tr>
+                        <th class="py-3 px-4 border">Book Name</th>
+                        <th class="py-3 px-4 border">Author</th>
+                        <th class="py-3 px-4 border">Category</th>
+                        <th class="py-3 px-4 border">Publication Year</th>
+                        <th class="py-3 px-4 border">ISBN</th>
+                        <th class="py-3 px-4 border">Available Copies</th>
+                        <th class="py-3 px-4 border">Total Copies</th>
+                        <th class="border border-gray-300 p-3">Action</th>
+
+                    </tr>
+                </thead>
+
+                <!-- Table Body -->
+                <tbody class="bg-[#F8F9FA] text-center text-gray-700">
+                    {% for book in books %}
+                    <tr class="hover:bg-gray-200 transition">
+                        <td class="py-3 px-4 border">{{ book.title }}</td>
+                        <td class="py-3 px-4 border">{{ book.author }}</td>
+                        <td class="py-3 px-4 border">{{ book.genre }}</td>
+                        <td class="py-3 px-4 border">{{ book.publication_year }}</td>
+                        <td class="py-3 px-4 border">{{ book.isbn }}</td>
+                        <td class="py-3 px-4 border">{{ book.available_copies }}</td>
+                        <td class="py-3 px-4 border">{{ book.total_copies }}</td>
+                        <td class="border border-gray-300 p-3">
+                            <a href="{% url 'edit_book' book.id %}" class="bg-blue-500 text-white px-4 py-2 rounded-md">
+                                Edit
+                            </a> 
+                            <a href="{% url 'delete_book' book.id %}" class="bg-red-500 text-white px-4 py-2 rounded-md">
+                               Delete
+                            </a>                       
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <!-- No Books Available -->
+    <div class="text-center mt-10">
+        <h2 class="text-2xl text-red-500 font-semibold">No Books Available</h2>
+    </div>
+    {% endif %}
+
+    <!-- Footer -->
+    {% include "footer.html" %}
+
+</body>
+</html>

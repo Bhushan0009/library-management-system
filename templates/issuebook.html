@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Issue Book</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+{% include "navbaradmin.html" %}
+<body class="bg-white-900 text-white flex items-center justify-center min-h-screen">
+
+
+    <!-- Issue Book Form -->
+    <div class="flex flex-grow items-center justify-center mt-40"> 
+        <div class="bg-white-800 p-8 rounded-lg shadow-lg max-w">
+            <h2 class="text-2xl font-bold text-center border-b pb-4 mb-6">Issue Book to Student</h2>
+
+            <form method="post" class="space-y-4">
+                {% csrf_token %}
+    
+                {% for field in form %}
+                <div class="flex items-center space-x-2">
+                    <label class="block text-sm font-medium mb-3">{{ field.label_tag }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ field.errors.0 }}</p>                        
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+
+        
+
+            <!-- Submit Button -->
+            <button type="submit" class="w-full bg-gray-300 text-black py-2 px-4 rounded-md font-semibold hover:bg-gray-200 transition">
+                 Issue Book
+            </button>
+        </form>
+
+        <!-- View Issued Books Link -->
+        <p class="text-center mt-4 text-sm">
+            View Issued Books? <a href="{% url 'viewissuedbook'%}" class="text-blue-500 font-semibold hover:underline">Click here</a>
+        </p>
+    </div>
+
+    <!-- Footer -->
+	{% include "footer.html" %}
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Library Management System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-white text-black">
+    <!-- Navbar -->
+    <nav class="bg-black text-white fixed top-0 left-0 w-full shadow-md">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <a href="{% url 'home' %}" class="text-2xl font-bold">Library Management System</a>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-toggle" class="lg:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <ul class="hidden lg:flex space-x-6 text-lg">
+                <li><a href="{% url 'home' %}" class="hover:text-gray-400">Home</a></li>
+    
+                <li><a href="{% url 'viewissuedbookbystudent' %}" class="hover:text-gray-400">View Issue Book</a></li>
+
+                <li>
+                    <form id="logout-form" action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-0 rounded-lg transition">LOGOUT</button>
+                    </form>
+                </li>
+            </ul>
+            
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-black text-white text-center py-2">
+            <a href="{% url 'home' %}" class="block py-2 hover:text-gray-400">Home</a>
+            <a href="{% url 'viewissuedbookbystudent' %}" class="block py-2 hover:text-gray-400">View Issued Books</a>
+            <form id="logout-form" action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="block w-full py-2 hover:text-red-500">LOGOUT</button>
+            </form>
+        </div>
+    </nav>
+
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>
